@@ -1,0 +1,14 @@
+<makegen>
+  <configuration name="Release">
+    <generatehfile>false</generatehfile>
+    <hfilename>AdventOfCode.h</hfilename>
+    <includedir>src/</includedir>
+    <outputdir>bin/</outputdir>
+    <outputname>adventofcode2024.out</outputname>
+    <outputtype>executable</outputtype>
+    <projectname>AdventOfCode2024</projectname>
+    <srcdir>src/</srcdir>
+  </configuration>
+  <target>Release</target>
+  <version>v1.3.0</version>
+</makegen>
