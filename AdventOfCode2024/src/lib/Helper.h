@@ -4,6 +4,7 @@
 #include <functional>
 #include <map>
 #include <numeric>
+#include <regex>
 #include <set>
 #include <vector>
 
@@ -35,16 +36,16 @@ struct Helper
   // Converts a binary string to an int32_t ie "10100111001" to 1337
   static int BinStrToInt(const std::string& str)
   {
-    if(str.size() >= 32)
+    if (str.size() >= 32)
     {
       std::cout << "BinStrToInt: Too big string, use BinStrToInt64 instead" << std::endl;
       return 0;
     }
 
     int val = 0;
-    for(size_t i = 0; i < str.size(); i++)
+    for (size_t i = 0; i < str.size(); i++)
     {
-      if(str[i] == '1')
+      if (str[i] == '1')
         val |= (1 << (str.size() - i - 1));
     }
     return val;
@@ -53,16 +54,16 @@ struct Helper
   // Converts a binary string to an int64_t ie "10100111001" to 1337
   static int64_t BinStrToInt64(const std::string& str)
   {
-    if(str.size() >= 64)
+    if (str.size() >= 64)
     {
       std::cout << "BinStrToInt64: Too big string" << std::endl;
       return 0;
     }
 
     int64_t val = 0;
-    for(size_t i = 0; i < str.size(); i++)
+    for (size_t i = 0; i < str.size(); i++)
     {
-      if(str[i] == '1')
+      if (str[i] == '1')
         val |= (1ll << (str.size() - i - 1));
     }
     return val;
@@ -95,13 +96,13 @@ struct Helper
   template <typename Container>
   static typename Container::value_type Min(const Container& container)
   {
-    if(container.size() == 0)
+    if (container.size() == 0)
     {
       std::cout << "Min: Container empty" << std::endl;
       return typename Container::value_type{};
     }
     typename Container::value_type min = *container.begin();
-    for(auto&& element : container)
+    for (auto&& element : container)
     {
       min = std::min(min, element);
     }
@@ -111,13 +112,13 @@ struct Helper
   template <typename Container>
   static typename Container::value_type Max(const Container& container)
   {
-    if(container.size() == 0)
+    if (container.size() == 0)
     {
       std::cout << "Min: Container empty" << std::endl;
       return typename Container::value_type{};
     }
     typename Container::value_type max = *container.begin();
-    for(auto&& element : container)
+    for (auto&& element : container)
     {
       max = std::max(max, element);
     }
@@ -151,9 +152,9 @@ struct Helper
 
     for (size_t i = 1; i < list.size(); i++)
     {
-      for(auto it = intersection.begin(); it != intersection.end();)
+      for (auto it = intersection.begin(); it != intersection.end();)
       {
-        if(list[i].find(*it) == list[i].end())
+        if (list[i].find(*it) == list[i].end())
           it = intersection.erase(it);
         else
           it++;
@@ -167,25 +168,25 @@ struct Helper
   {
     std::set<T> intersection = s1;
 
-		for(auto it = intersection.begin(); it != intersection.end();)
-		{
-			if(s2.find(*it) == s2.end())
-				it = intersection.erase(it);
-			else
-				it++;
-		}
+    for (auto it = intersection.begin(); it != intersection.end();)
+    {
+      if (s2.find(*it) == s2.end())
+        it = intersection.erase(it);
+      else
+        it++;
+    }
     return intersection;
   }
 
   template <typename T>
   static bool IsSubset(const std::set<T>& smallSet, const std::set<T>& bigSet)
   {
-    if(bigSet.size() < smallSet.size())
+    if (bigSet.size() < smallSet.size())
       return false;
 
-    for(auto&& t : smallSet)
+    for (auto&& t : smallSet)
     {
-      if(bigSet.find(t) == bigSet.end())
+      if (bigSet.find(t) == bigSet.end())
         return false;
     }
     return true;
@@ -204,21 +205,21 @@ struct Helper
   {
     std::map<State, int> visited;
     std::multimap<int, std::pair<int, State>> open;
-    for(int i = 0; i < initial.size(); i++)
+    for (int i = 0; i < initial.size(); i++)
       open.emplace(0, std::pair<int, State>{0, initial[i]});
-    while(!open.empty())
+    while (!open.empty())
     {
       auto it = open.begin();
-      if(goal(input, it->second.second))
+      if (goal(input, it->second.second))
       {
         return it->second.first;
       }
       int stateCost = it->second.first;
-      for(auto& newState : branch(input, it->second.second))
+      for (auto& newState : branch(input, it->second.second))
       {
         auto it = visited.find(newState.second);
         int cost = stateCost + newState.first;
-        if(it == visited.end() || it->second > cost)
+        if (it == visited.end() || it->second > cost)
         {
           open.emplace(heuristic(input, newState.second) + cost, std::pair<int, State>{cost, newState.second});
           visited.emplace(newState.second, cost);
@@ -276,7 +277,7 @@ struct Helper
     int i = 0;
     for (auto it = container.begin(); it != container.end(); ++it)
     {
-      if(i != 0)
+      if (i != 0)
         stream << ", ";
       stream << *it;
       i++;
@@ -307,6 +308,19 @@ struct Helper
       }
     }
     return ret;
+  }
+
+  static std::vector<std::string> GetAllRegexMatches(const std::string& str, const std::string& regex)
+  {
+    std::vector<std::string> matches;
+    std::regex reg{regex};
+    auto it = std::sregex_iterator(str.begin(), str.end(), reg);
+    auto end = std::sregex_iterator();
+    for (it; it != end; it++)
+    {
+      matches.emplace_back(it->str());
+    }
+    return matches;
   }
 
 private:

@@ -95,4 +95,15 @@ struct Input
       strings.emplace_back(str);
     return strings;
   }
+
+  static std::string Read(std::istream& input)
+  {
+    std::string result;
+    std::string str;
+    while (getline(input, str))
+      result += str + '\n';
+    if (!result.empty())
+      result.pop_back();
+    return result;
+  }
 };
