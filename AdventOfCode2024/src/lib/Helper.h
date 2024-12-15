@@ -323,6 +323,20 @@ struct Helper
     return matches;
   }
 
+  static std::vector<Index2D> GetNeighborDirections()
+  {
+    return std::vector<Index2D>{Index2D{1, 0}, Index2D{0, 1}, Index2D{-1, 0}, Index2D{0, -1}};
+  }
+
+  static Index2D GetDirection(char c)
+  {
+    if (c == 'v' || c == 'V') return Index2D{0, 1};
+    if (c == '^')             return Index2D{0, -1};
+    if (c == '>')             return Index2D{1, 0};
+    if (c == '<')             return Index2D{-1, 0};
+    std::cerr << "GetDirection: Invalid char: " << c << std::endl;
+  }
+
 private:
   template <typename Key, typename Value, typename Compare, typename Eval>
   static int TSP(const Graph<Key, Value>& graph, const std::set<Key>& nodesLeft, const std::vector<Key>& order, Compare compare, Eval eval)
