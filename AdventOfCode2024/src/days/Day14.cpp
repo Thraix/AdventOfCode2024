@@ -79,11 +79,10 @@ namespace day14
         positions.emplace(robot.pos);
       }
 
-      std::vector<Index2D> dirs{Index2D{1, 0}, Index2D{-1, 0}, Index2D{0, 1}, Index2D{0, -1}};
       int64_t neighbors = 0;
       for (const auto& pos : positions)
       {
-        for (const auto& dir : dirs)
+        for (const auto& dir : Helper::GetNeighborDirections())
         {
           neighbors += positions.count(pos + dir);
         }

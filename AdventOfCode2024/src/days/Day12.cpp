@@ -16,8 +16,6 @@ namespace day12
 
   void CalculateAreaAndPerimiter(const Array2D<char>& map, Index2D position, std::set<Index2D>& totalVisited, std::set<Index2D>& area, std::set<std::pair<Index2D, Index2D>>& perimeter)
   {
-    const std::vector<Index2D> indices{Index2D{-1, 0}, Index2D{1, 0}, Index2D{0, -1}, Index2D{0, 1}};
-
     char c = map.Get(position);
     std::stack<Index2D> toEvaluate;
     toEvaluate.emplace(position);
@@ -28,7 +26,7 @@ namespace day12
       toEvaluate.pop();
       totalVisited.emplace(current);
 
-      for (auto& dir : indices)
+      for (auto& dir : Helper::GetNeighborDirections())
       {
         Index2D newPos = current + dir;
         if (area.count(newPos) == 0)
