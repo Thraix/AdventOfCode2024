@@ -58,43 +58,41 @@ namespace day14
     return a * b * c * d;
   }
 
+  int GetStepCoord(const std::vector<Robot>& robots, int length, int dimension)
+  {
+    int maxIndex = 0;
+    int maxNeighbors = 0;
+    for (int i = 1; i <= length; i++)
+    {
+      std::vector<int> amounts(length, 0);
+      for (const auto& robot : robots)
+      {
+        int endPos = robot.pos[dimension] + robot.vel[dimension] * i;
+        endPos = (endPos % length + length) % length;
+        amounts[endPos]++;
+      }
+
+      int neighbors = 0;
+      for (int i = 0; i < length; i++)
+      {
+        neighbors += amounts[i] * (amounts[(i + 1) % length] + amounts[(i + length - 1) % length]);
+      }
+      if (neighbors > maxNeighbors)
+      {
+        maxNeighbors = neighbors;
+        maxIndex = i;
+      }
+    }
+    return maxIndex;
+  }
+
   OUTPUT2(input)
   {
     int width = 101;
     int height = 103;
-    std::vector<Robot> cpy = input;
-    int i = 0;
-    int64_t maxNeighbors = 0;
-    int minSteps = 0;
-    while (i < width * height)
-    {
-      i++;
+    int stepX = GetStepCoord(input, width, 0);
+    int stepY = GetStepCoord(input, height, 1);
 
-      std::set<Index2D> positions;
-      for (auto& robot : cpy)
-      {
-        robot.pos = robot.pos + robot.vel;
-        robot.pos.x = (robot.pos.x + width) % width;
-        robot.pos.y = (robot.pos.y + height) % height;
-        positions.emplace(robot.pos);
-      }
-
-      int64_t neighbors = 0;
-      for (const auto& pos : positions)
-      {
-        for (const auto& dir : Helper::GetNeighborDirections())
-        {
-          neighbors += positions.count(pos + dir);
-        }
-      }
-
-      if (neighbors > maxNeighbors)
-      {
-        maxNeighbors = neighbors;
-        minSteps = i;
-      }
-    }
-
-    return minSteps;
+    return Helper::ChineseRemainderTheorem({width, height}, {stepX, stepY});
   }
 }

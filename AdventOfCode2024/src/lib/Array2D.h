@@ -34,6 +34,15 @@ struct Index2D
     return Index2D{x * scale, y * scale};
   }
 
+  int operator[](int dimension) const
+  {
+    assert(dimension == 0 || dimension == 1);
+    if (dimension == 0)
+      return x;
+    if (dimension == 1)
+      return y;
+  }
+
   friend std::ostream& operator<<(std::ostream& stream, const Index2D& index)
   {
     return stream << "(" << index.x << " " << index.y << ")";

@@ -337,6 +337,32 @@ struct Helper
     std::cerr << "GetDirection: Invalid char: " << c << std::endl;
   }
 
+  static int64_t ChineseRemainderTheoremTwo(int64_t mod1, int64_t mod2, int64_t res1, int64_t res2)
+  {
+    int64_t i = res1;
+    while (true)
+    {
+      if (i % mod2 == res2)
+        return i;
+
+      i += mod1;
+    }
+    return 0;
+  }
+
+  static int64_t ChineseRemainderTheorem(const std::vector<int64_t>& mods, const std::vector<int64_t>& results)
+  {
+    int64_t currentMod = mods.front();
+    int64_t currentRes = results.front();
+    for (int i = 1; i < mods.size(); i++)
+    {
+      int64_t result = ChineseRemainderTheoremTwo(currentMod, mods[i], currentRes, results[i]);
+      currentRes = result;
+      currentMod = currentMod * mods[i];
+    }
+    return currentRes;
+  }
+
 private:
   template <typename Key, typename Value, typename Compare, typename Eval>
   static int TSP(const Graph<Key, Value>& graph, const std::set<Key>& nodesLeft, const std::vector<Key>& order, Compare compare, Eval eval)
