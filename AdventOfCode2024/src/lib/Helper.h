@@ -490,6 +490,29 @@ struct Helper
     return currentRes;
   }
 
+  // Input    - Puzzle input
+  // Function - bool(int64_t);
+  //            Given index, return whether the index should increase next iteration
+  //
+  // Returns the last index where Function returns true, or -1 if it never returns true
+  template <typename Input, typename Function>
+  static int64_t BinarySearch(const Input& input, int64_t min, int64_t max, Function func)
+  {
+    if (min >= max)
+    {
+      if (func(input, min))
+        return min;
+      else
+        return min - 1;
+    }
+
+    int i = min + (max - min) / 2;
+    if (func(input, i))
+      return BinarySearch(input, i + 1, max, func);
+    else
+      return BinarySearch(input, min, i-1, func);
+  }
+
 private:
   template <typename Key, typename Value, typename Compare, typename Eval>
   static int TSP(const Graph<Key, Value>& graph, const std::set<Key>& nodesLeft, const std::vector<Key>& order, Compare compare, Eval eval)
