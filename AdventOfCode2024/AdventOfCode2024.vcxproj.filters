@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\days\Day18.cpp">
+    <ClCompile Include="src\days\Day19.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\days\Day01.cpp">
@@ -70,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\days\Day17.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\days\Day18.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

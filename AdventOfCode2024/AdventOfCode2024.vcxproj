@@ -167,6 +167,7 @@
     <ClCompile Include="src\days\Day16.cpp" />
     <ClCompile Include="src\days\Day17.cpp" />
     <ClCompile Include="src\days\Day18.cpp" />
+    <ClCompile Include="src\days\Day19.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
