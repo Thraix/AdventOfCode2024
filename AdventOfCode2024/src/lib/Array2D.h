@@ -202,6 +202,11 @@ struct Array2D
     return x + y * width;
   }
 
+  int GetIndex(const Index2D& index) const
+  {
+    return GetIndex(index.x, index.y);
+  }
+
   T& Get(int x, int y) 
   {
     assert(IsInside(x, y));
