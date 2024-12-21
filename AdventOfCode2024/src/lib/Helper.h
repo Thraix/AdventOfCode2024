@@ -513,6 +513,11 @@ struct Helper
       return BinarySearch(input, min, i-1, func);
   }
 
+  static int64_t ManhattanDistance(const Index2D& from, const Index2D& to)
+  {
+    return std::abs(from.x - to.x) + std::abs(from.y - to.y);
+  }
+
 private:
   template <typename Key, typename Value, typename Compare, typename Eval>
   static int TSP(const Graph<Key, Value>& graph, const std::set<Key>& nodesLeft, const std::vector<Key>& order, Compare compare, Eval eval)
