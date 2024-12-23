@@ -5,9 +5,9 @@ namespace day22
   REGISTER_DAY(day22, std::vector<int>, int64_t);
 
   REGISTER_TEST_EXAMPLE(day22, ExampleInput, 1, 37990510);
-  REGISTER_TEST(day22, Input, 1, 14273043166);
+  REGISTER_TEST        (day22, Input,        1, 14273043166);
   REGISTER_TEST_EXAMPLE(day22, ExampleInput, 2, 23);
-  REGISTER_TEST(day22, Input, 2, 1667);
+  REGISTER_TEST        (day22, Input,        2, 1667);
 
   READ_INPUT(input)
   {
